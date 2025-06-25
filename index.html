@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SARKA</title>
+  
+ 
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      transition: background-color 0.1s ease, color 0.1s ease;
+      position: relative;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 25vw;
+      transform: translate(-50%, -50%);
+      text-align: left;
+      line-height: 1.6;
+      font-size: 2rem;
+      font-weight: 300;
+      user-select: none;
+    }
+
+    .content a {
+      color: inherit;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+	
+	.content2 {
+		position: absolute;
+		bottom: 50px;
+		left: 50%;
+		transform: translateX(-50%);
+		max-width: 80vw;
+		text-align: center;
+		font-size: 0.8rem;     /* 75% smaller than 1.8rem */
+		font-weight: 300;
+		user-select: none;
+		line-height: 1.6;
+		color: inherit;
+		pointer-events: none;
+	}
+
+
+    .light-theme {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .dark-theme {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    .video-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 75vw;
+      transform: translate(-50%, -50%);
+      width: 40vw;
+      max-width: 600px;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .light-theme .video-wrapper video {
+      filter: invert(1);
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        left: 50vw;
+        width: 90%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 1.5rem;
+      }
+
+      .video-wrapper {
+        left: 50vw;
+        top: 80%;
+        width: 90vw;
+      }
+    }
+  </style>
+</head>
+<body class="light-theme">
+  <div class="content">
+    Greetings,<br />
+	My name is SARKA, I'm in Thessaloniki<br />
+    and I produce music and graphics.<br />
+    <a href="mailto:saarkaa.xyz@gmail.com">Hire me</a>
+  </div>
+  
+  <div class="content2">
+  we up. they down
+</div>
+
+
+
+  <div class="video-wrapper">
+    <video src="https://www.dropbox.com/scl/fi/s3yd488wt64mjq6r4ny0r/hire-me-html-video.mp4?rlkey=9bsrxcz82g8cwd4k56y1t7kma&st=zx68rc0c&raw=1" autoplay muted loop playsinline></video>
+  </div>
+
+  <script>
+    const body = document.body;
+    let lastX = 0;
+    let lastY = 0;
+    const moveThreshold = 20;
+
+    function switchTheme() {
+      body.classList.toggle('light-theme');
+      body.classList.toggle('dark-theme');
+    }
+
+    body.classList.add('light-theme', 'dark-theme');
+    body.classList.remove('dark-theme');
+
+    window.addEventListener('mousemove', (event) => {
+      const distance = Math.hypot(event.clientX - lastX, event.clientY - lastY);
+      if (distance > moveThreshold) {
+        switchTheme();
+        lastX = event.clientX;
+        lastY = event.clientY;
+      }
+    });
+  </script>
+</body>
+</html>
