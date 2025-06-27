@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SARKA</title>
-  
- 
 
   <style>
     html, body {
@@ -36,22 +34,21 @@
       font-weight: 500;
       text-decoration: underline;
     }
-	
-	.content2 {
-		position: absolute;
-		bottom: 50px;
-		left: 50%;
-		transform: translateX(-50%);
-		max-width: 80vw;
-		text-align: center;
-		font-size: 0.8rem;     /* 75% smaller than 1.8rem */
-		font-weight: 300;
-		user-select: none;
-		line-height: 1.6;
-		color: inherit;
-		pointer-events: none;
-	}
 
+    .content2 {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 80vw;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 300;
+      user-select: none;
+      line-height: 1.6;
+      color: inherit;
+      pointer-events: none;
+    }
 
     .light-theme {
       background-color: #ffffff;
@@ -73,54 +70,68 @@
       aspect-ratio: 16 / 9;
       overflow: hidden;
       pointer-events: none;
+      border-radius: 6px;
     }
 
     .video-wrapper video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 6px;
     }
 
     .light-theme .video-wrapper video {
       filter: invert(1);
     }
 
-    @media (max-width: 768px) {
-      .content {
-        left: 50vw;
-        width: 90%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        font-size: 1.5rem;
-      }
+    .lang-switch {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 1rem;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: inherit;
+      user-select: none;
+    }
 
-      .video-wrapper {
-        left: 50vw;
-        top: 80%;
-        width: 90vw;
-      }
+    .lang {
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .lang-active {
+      text-decoration: underline;
+    }
+
+    .lang:hover {
+      opacity: 0.7;
     }
   </style>
 </head>
 <body class="light-theme">
-  <div class="content">
-    Greetings,<br />
-	My name is SARKA, I'm in Thessaloniki<br />
+  <div class="content"
+    data-lang-en="Hey,<br />My name is SARKA, I'm in Thessaloniki, GR<br />and I produce music and graphics.<br /><a href='mailto:saarkaa.xyz@gmail.com'>Hire me</a>"
+    data-lang-gr="Γεια,<br />Με λένε ΣΑΡΚΑ, είμαι στην Θεσσαλονίκη<br />και παράγω μουσική και γραφικά.<br /><a href='mailto:saarkaa.xyz@gmail.com'>Προσλάβετέ με</a>">
+    Hey,<br />
+    My name is SARKA, I'm in Thessaloniki, GR<br />
     and I produce music and graphics.<br />
     <a href="mailto:saarkaa.xyz@gmail.com">Hire me</a>
   </div>
-  
+
   <div class="content2">
-  we up. they down
-</div>
+    sarka
+  </div>
 
-
+  <div class="lang-switch">
+    <span class="lang lang-active">EN</span> / <span class="lang">GR</span>
+  </div>
 
   <div class="video-wrapper">
     <video src="https://www.dropbox.com/scl/fi/s3yd488wt64mjq6r4ny0r/hire-me-html-video.mp4?rlkey=9bsrxcz82g8cwd4k56y1t7kma&st=zx68rc0c&raw=1" autoplay muted loop playsinline></video>
   </div>
 
   <script>
+    // Theme switch on movement
     const body = document.body;
     let lastX = 0;
     let lastY = 0;
@@ -141,6 +152,23 @@
         lastX = event.clientX;
         lastY = event.clientY;
       }
+    });
+  </script>
+
+  <script>
+    // Language switch
+    document.querySelectorAll('.lang-switch .lang').forEach(function(el) {
+      el.addEventListener('click', function() {
+        document.querySelector('.lang-active').classList.remove('lang-active');
+        this.classList.add('lang-active');
+
+        const lang = this.textContent.trim().toLowerCase();
+        const contentEl = document.querySelector('.content');
+        const newHtml = contentEl.getAttribute('data-lang-' + lang);
+        if (newHtml) {
+          contentEl.innerHTML = newHtml;
+        }
+      });
     });
   </script>
 </body>
