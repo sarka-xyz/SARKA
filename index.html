@@ -83,6 +83,21 @@
     .light-theme .video-wrapper video {
       filter: invert(1);
     }
+.logo {
+  position: absolute;
+  top: 30px; /* same as .lang-switch top */
+  left: 40px; /* match .lang-switch right for symmetry, or adjust as you like */
+  height: 32px; /* match your language button height or tweak */
+  transition: filter 0.3s ease;
+}
+
+.light-theme .logo {
+  filter: invert(1);
+}
+
+.dark-theme .logo {
+  filter: invert(0);
+}
 
     .lang-switch {
       position: absolute;
@@ -116,6 +131,11 @@
 
 </head>
 <body class="light-theme">
+  
+  <img src="https://dl.dropboxusercontent.com/scl/fi/r0nlzankdnxrmfwkutcc8/sarka-logo.svg?rlkey=ohaszwnsosyv8f701pu5irxmj&st=5z8jft1x&dl=0"
+     alt="SARKA logo"
+     class="logo" />
+
   <div class="content"
     data-lang-en="Hey,<br />My name is SARKA, I'm in Thessaloniki, GR<br />and I produce music and graphics.<br /><a href='mailto:saarkaa.xyz@gmail.com'>Hire me</a>"
     data-lang-gr="Γεια,<br />Με λένε ΣΑΡΚΑ, είμαι στην Θεσσαλονίκη<br />και παράγω μουσική και γραφικά.<br /><a href='mailto:saarkaa.xyz@gmail.com'>Προσλάβετέ με</a>">
@@ -126,7 +146,7 @@
   </div>
 
   <div class="content2">
-    sarka
+    ahlela ahlalas
   </div>
 
   <div class="lang-switch">
