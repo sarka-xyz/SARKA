@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – SARKA</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Roboto Flex", sans-serif;
+      font-weight: 650;
+      font-stretch: 151%;
+      letter-spacing: -0.05em;
+      transition: background-color 0.1s ease, color 0.1s ease;
+      position: relative;
+    }
+
+    .light-theme {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .dark-theme {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    .logo {
+      position: absolute;
+      top: 30px;
+      left: 40px;
+      height: 1.5rem;
+      cursor: pointer;
+    }
+
+    .light-theme .logo {
+      filter: invert(1);
+    }
+
+    .dark-theme .logo {
+      filter: invert(0);
+    }
+
+    .lang-switch {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: inherit;
+      user-select: none;
+    }
+
+    .lang {
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .lang-active {
+      text-decoration: underline;
+    }
+
+    .lang:hover {
+      opacity: 0.7;
+    }
+
+    .back-arrow {
+      position: absolute;
+      top: 30px;
+      left: 10px;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .form-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 340px;
+      width: 90%;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid currentColor;
+      padding: 0.5rem 0;
+      color: inherit;
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-bottom: 1px solid #666;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .contact-form button {
+      align-self: flex-start;
+      padding: 0.5rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      background: none;
+      border: 1px solid currentColor;
+      color: inherit;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .contact-form button:hover {
+      background: currentColor;
+      color: var(--button-text, #fff);
+    }
+
+    .light-theme .contact-form button:hover {
+      --button-text: #000;
+    }
+
+    .dark-theme .contact-form button:hover {
+      --button-text: #fff;
+    }
+
+    .content2 {
+      position: absolute;
+      bottom: 50px;
+      right: 40px;
+      font-size: 0.8rem;
+      user-select: none;
+      line-height: 1.6;
+      color: inherit;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="light-theme">
+  <a href="index.html" class="back-arrow">&#8592;</a>
+  <a href="index.html"><img src="sarka-logo.svg" alt="SARKA logo" class="logo" /></a>
+
+  <div class="lang-switch">
+    <span class="lang lang-active">EN</span> / <span class="lang">GR</span>
+  </div>
+
+  <div class="form-container">
+    <form action="https://formspree.io/f/xwpqqpzk" method="POST" class="contact-form">
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Your email" required />
+      <textarea name="message" placeholder="Your message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <div class="content2">SKG</div>
+
+  <script>
+    const body = document.body;
+    let lastX = 0, lastY = 0;
+    const moveThreshold = 20;
+    function switchTheme() {
+      body.classList.toggle('light-theme');
+      body.classList.toggle('dark-theme');
+    }
+    body.classList.add('light-theme', 'dark-theme');
+    body.classList.remove('dark-theme');
+    window.addEventListener('mousemove', (event) => {
+      const distance = Math.hypot(event.clientX - lastX, event.clientY - lastY);
+      if (distance > moveThreshold) {
+        switchTheme();
+        lastX = event.clientX;
+        lastY = event.clientY;
+      }
+    });
+
+    document.querySelectorAll('.lang-switch .lang').forEach(function(el) {
+      el.addEventListener('click', function() {
+        document.querySelector('.lang-active').classList.remove('lang-active');
+        this.classList.add('lang-active');
+        const lang = this.textContent.trim().toLowerCase();
+        const placeholders = {
+          en: {
+            name: "Your name",
+            email: "Your email",
+            message: "Your message",
+            button: "Send"
+          },
+          gr: {
+            name: "Το όνομά σας",
+            email: "Το email σας",
+            message: "Το μήνυμά σας",
+            button: "Αποστολή"
+          }
+        };
+        const f = document.querySelector('.contact-form');
+        f.name.placeholder = placeholders[lang].name;
+        f.email.placeholder = placeholders[lang].email;
+        f.message.placeholder = placeholders[lang].message;
+        f.querySelector('button').textContent = placeholders[lang].button;
+      });
+    });
+  </script>
+</body>
+</html>
