@@ -1,10 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SARKA</title>
-
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
@@ -12,7 +14,10 @@
       width: 100%;
       height: 100vh;
       overflow: hidden;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Roboto Flex", sans-serif;
+      font-weight: 650;
+      font-stretch: 151%;
+      letter-spacing: -0.05em;
       transition: background-color 0.1s ease, color 0.1s ease;
       position: relative;
     }
@@ -23,27 +28,23 @@
       left: 25vw;
       transform: translate(-50%, -50%);
       text-align: left;
-      line-height: 1.6;
-      font-size: 2rem;
-      font-weight: 300;
+      line-height: 1.2;
+      font-size: 1.8rem;
+      font-weight: 650;
       user-select: none;
     }
 
     .content a {
       color: inherit;
-      font-weight: 500;
+      font-weight: 1000;
       text-decoration: underline;
     }
 
     .content2 {
       position: absolute;
       bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 80vw;
-      text-align: center;
+      right: 40px;
       font-size: 0.8rem;
-      font-weight: 300;
       user-select: none;
       line-height: 1.6;
       color: inherit;
@@ -84,29 +85,26 @@
       filter: invert(1);
     }
 
-	.logo {
-		position: absolute;
-		top: 30px;
-		left: 40px;
-		height: 1.5rem;
-		transition: filter 0.3s ease;
-	}
+    .logo {
+      position: absolute;
+      top: 30px;
+      left: 40px;
+      height: 1.5rem;
+      pointer-events: none;
+    }
 
-	.light-theme .logo {
-		filter: invert(1);
-	}
+    .light-theme .logo {
+      filter: invert(1);
+    }
 
-	.dark-theme .logo {
-		filter: invert(0);
-	}
-
+    .dark-theme .logo {
+      filter: invert(0);
+    }
 
     .lang-switch {
       position: absolute;
       top: 30px;
       right: 40px;
-      font-size: 1rem;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       color: inherit;
       user-select: none;
     }
@@ -124,31 +122,18 @@
       opacity: 0.7;
     }
   </style>
-  
-<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<link rel="shortcut icon" href="favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-<link rel="manifest" href="site.webmanifest" />
-
 </head>
 <body class="light-theme">
-  
   <img src="sarka-logo.svg" alt="SARKA logo" class="logo" />
-
-
   <div class="content"
-    data-lang-en="Hey,<br />My name is SARKA, I'm in Thessaloniki, GR<br />and I produce music and graphics.<br /><a href='mailto:saarkaa.xyz@gmail.com'>Hire me</a>"
-    data-lang-gr="Γεια,<br />Με λένε ΣΑΡΚΑ, είμαι στην Θεσσαλονίκη<br />και παράγω μουσική και γραφικά.<br /><a href='mailto:saarkaa.xyz@gmail.com'>Προσλάβετέ με</a>">
-    Hey,<br />
-    My name is SARKA, I'm in Thessaloniki, GR<br />
-    and I produce music and graphics.<br />
-    <a href="mailto:saarkaa.xyz@gmail.com">Hire me</a>
+    data-lang-en="Feymi/SARKA Thessaloniki<br />Graphic Designer Music Producer<br /><a href='hire.html'>Hire me</a>"
+    data-lang-gr="Φεϊμί/ΣΑΡΚΑ Θεσσαλονίκη<br />Γραφίστας Μουσικός Παραγώγος<br /><a href='hire.html'>Προσλάβετέ με</a>">
+    Feymi/SARKA Thessaloniki<br />
+    Graphic Designer Music Producer<br />
+    <a href="hire.html">Hire me</a>
   </div>
 
-  <div class="content2">
-    ahlelela ahlalas
-  </div>
+  <div class="content2">SKG</div>
 
   <div class="lang-switch">
     <span class="lang lang-active">EN</span> / <span class="lang">GR</span>
@@ -159,20 +144,15 @@
   </div>
 
   <script>
-    // Theme switch on movement
     const body = document.body;
-    let lastX = 0;
-    let lastY = 0;
+    let lastX = 0, lastY = 0;
     const moveThreshold = 20;
-
     function switchTheme() {
       body.classList.toggle('light-theme');
       body.classList.toggle('dark-theme');
     }
-
     body.classList.add('light-theme', 'dark-theme');
     body.classList.remove('dark-theme');
-
     window.addEventListener('mousemove', (event) => {
       const distance = Math.hypot(event.clientX - lastX, event.clientY - lastY);
       if (distance > moveThreshold) {
@@ -181,21 +161,15 @@
         lastY = event.clientY;
       }
     });
-  </script>
 
-  <script>
-    // Language switch
     document.querySelectorAll('.lang-switch .lang').forEach(function(el) {
       el.addEventListener('click', function() {
         document.querySelector('.lang-active').classList.remove('lang-active');
         this.classList.add('lang-active');
-
         const lang = this.textContent.trim().toLowerCase();
         const contentEl = document.querySelector('.content');
         const newHtml = contentEl.getAttribute('data-lang-' + lang);
-        if (newHtml) {
-          contentEl.innerHTML = newHtml;
-        }
+        if (newHtml) contentEl.innerHTML = newHtml;
       });
     });
   </script>
