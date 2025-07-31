@@ -22,13 +22,37 @@
       position: relative;
     }
 
+.top-nav {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4rem;
+  font-size: 1.1rem;
+  font-weight: 650;
+  z-index: 10;
+  user-select: none;
+}
+
+.top-nav a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.top-nav a:hover {
+  opacity: 0.7;
+}
+
+
     .content {
       position: absolute;
       top: 50%;
       left: 25vw;
       transform: translate(-50%, -50%);
       text-align: left;
-      line-height: 1.2;
+      line-height: 1.5;
       font-size: 1.8rem;
       font-weight: 650;
       user-select: none;
@@ -124,12 +148,33 @@
   </style>
 </head>
 <body class="light-theme">
+
+  <nav class="top-nav" data-lang-en="Home,Music,Portfolio" data-lang-gr="Αρχική,Μουσική,Πορτφόλιο">
+    <a href="index.html">Home</a>
+    <a href="music.html">Music</a>
+    <a href="https://www.behance.net/feimixyz" target="_blank" rel="noopener">Portfolio</a>
+  </nav>
+
   <img src="sarka-logo.svg" alt="SARKA logo" class="logo" />
   <div class="content"
-    data-lang-en="Feymi/SARKA Thessaloniki<br />Graphic Designer Music Producer<br /><a href='hire.html'>Hire me</a>"
-    data-lang-gr="Φεϊμί/ΣΑΡΚΑ Θεσσαλονίκη<br />Γραφίστας Μουσικός Παραγώγος<br /><a href='hire.html'>Προσλάβετέ με</a>">
-    Feymi/SARKA Thessaloniki<br />
-    Graphic Designer Music Producer<br />
+    data-lang-en="
+	Feymi/SARKA<br />
+	Thessaloniki<br /><br />
+	Graphic Designer<br />
+	Music Producer<br /><br />
+	<a href='hire.html'>Hire me</a>"
+	
+    data-lang-gr="
+	Φεϊμί/ΣΑΡΚΑ<br />
+	Θεσσαλονίκη<br /><br />
+	Γραφίστας<br />
+	Μουσικός Παραγώγος<br /><br />
+	<a href='hire.html'>Προσλάβετέ με</a>">
+    
+	Feymi/SARKA<br />
+	Thessaloniki<br /><br />
+    Graphic Designer<br />
+	Music Producer<br /><br />
     <a href="hire.html">Hire me</a>
   </div>
 
@@ -167,6 +212,16 @@
         document.querySelector('.lang-active').classList.remove('lang-active');
         this.classList.add('lang-active');
         const lang = this.textContent.trim().toLowerCase();
+		
+		 const nav = document.querySelector('.top-nav');
+    const labels = nav.getAttribute(`data-lang-${lang}`)?.split(",");
+    if (labels && labels.length === 3) {
+      const links = nav.querySelectorAll('a');
+      links.forEach((link, i) => {
+        link.textContent = labels[i];
+      });
+    }
+	
         const contentEl = document.querySelector('.content');
         const newHtml = contentEl.getAttribute('data-lang-' + lang);
         if (newHtml) contentEl.innerHTML = newHtml;
