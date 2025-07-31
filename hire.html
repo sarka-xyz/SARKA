@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact – SARKA</title>
+  <title>Hire SARKA</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-light: #ffffff;
+      --text-light: #000000;
+      --bg-dark: #000000;
+      --text-dark: #ffffff;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -19,16 +26,42 @@
       letter-spacing: -0.05em;
       transition: background-color 0.1s ease, color 0.1s ease;
       position: relative;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+.top-nav {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4rem;
+  font-size: 1.1rem;
+  font-weight: 650;
+  z-index: 10;
+  user-select: none;
+}
+
+.top-nav a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.top-nav a:hover {
+  opacity: 0.7;
+}
+
+
+    .dark-theme {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     .light-theme {
-      background-color: #ffffff;
-      color: #000000;
-    }
-
-    .dark-theme {
-      background-color: #000000;
-      color: #ffffff;
+      background-color: var(--bg-light);
+      color: var(--text-light);
     }
 
     .logo {
@@ -68,25 +101,28 @@
       opacity: 0.7;
     }
 
-    .back-arrow {
-      position: absolute;
-      top: 30px;
-      left: 10px;
-      font-size: 1.5rem;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-      font-weight: bold;
-      user-select: none;
-    }
-
     .form-container {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      max-width: 340px;
-      width: 90%;
+    }
+
+    .form-wrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .back-arrow-inline {
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      user-select: none;
+      padding-top: 0.5rem;
+      line-height: 1;
     }
 
     .contact-form {
@@ -94,6 +130,9 @@
       flex-direction: column;
       gap: 1rem;
       font-size: 1rem;
+      width: 400px;
+      color: inherit;
+      font: inherit;
     }
 
     .contact-form input,
@@ -103,12 +142,43 @@
       border-bottom: 1px solid currentColor;
       padding: 0.5rem 0;
       color: inherit;
-      font-family: inherit;
-      font-size: 1rem;
+      font: inherit;
       outline: none;
-      transition: border-color 0.2s;
+      caret-color: inherit;
     }
 
+    .contact-form select {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid currentColor;
+      padding: 0.5rem 0;
+      color: inherit;
+      font: inherit;
+      outline: none;
+      appearance: none;
+      caret-color: currentColor;
+    }
+	
+	.budget-options {
+      display: flex;
+      gap: 1.2rem;
+      font: inherit;
+      color: inherit;
+    }
+
+    .budget-options label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+
+    .budget-options input[type="radio"] {
+      accent-color: currentColor;
+      cursor: pointer;
+    }
+
+    .contact-form select:focus,
     .contact-form input:focus,
     .contact-form textarea:focus {
       border-bottom: 1px solid #666;
@@ -120,15 +190,14 @@
     }
 
     .contact-form button {
-      align-self: flex-start;
-      padding: 0.5rem 1rem;
+      width: 100%;
+      padding: 0.5rem 0;
       font-size: 0.95rem;
-      font-weight: 500;
+      font-weight: 1000;
       background: none;
       border: 1px solid currentColor;
       color: inherit;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
     }
 
     .contact-form button:hover {
@@ -157,20 +226,42 @@
   </style>
 </head>
 <body class="light-theme">
-  <a href="index.html" class="back-arrow">&#8592;</a>
   <a href="index.html"><img src="sarka-logo.svg" alt="SARKA logo" class="logo" /></a>
+ 
+  <nav class="top-nav" data-lang-en="Home,Music,Portfolio" data-lang-gr="Αρχική,Μουσική,Πορτφόλιο">
+    <a href="index.html">Home</a>
+    <a href="music.html">Music</a>
+    <a href="https://www.behance.net/feimixyz" target="_blank" rel="noopener">Portfolio</a>
+  </nav>
 
   <div class="lang-switch">
     <span class="lang lang-active">EN</span> / <span class="lang">GR</span>
   </div>
 
   <div class="form-container">
-    <form action="https://formspree.io/f/xwpqqpzk" method="POST" class="contact-form">
-      <input type="text" name="name" placeholder="Your name" required />
-      <input type="email" name="email" placeholder="Your email" required />
-      <textarea name="message" placeholder="Your message" required></textarea>
-      <button type="submit">Send</button>
-    </form>
+    <div class="form-wrapper">
+      <a href="index.html" class="back-arrow-inline">&#8592;</a>
+      <form action="https://formspree.io/f/xwpqqpzk" method="POST" class="contact-form" id="contact-form">
+        <input type="text" name="name" placeholder="Full Name / Company Name" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <label for="service" id="label-service">Choose your service</label>
+        <select name="service" id="service" required>
+          <option value="" disabled selected>Select your choice</option>
+          <option value="graphic-design">Graphic Design</option>
+          <option value="music-production">Music Production</option>
+          <option value="both">Both</option>
+        </select>
+		<label for="budget">Budget:</label>
+	<div class="budget-options">
+		<label><input type="radio" name="budget" value="20-50" required /> 20–50 €</label>
+		<label><input type="radio" name="budget" value="50-200" /> 50–200 €</label>
+		<label><input type="radio" name="budget" value="200+" /> 200+ €</label>
+	</div>
+
+        <textarea name="message" placeholder="Project Details" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
   </div>
 
   <div class="content2">SKG</div>
@@ -179,12 +270,12 @@
     const body = document.body;
     let lastX = 0, lastY = 0;
     const moveThreshold = 20;
+
     function switchTheme() {
       body.classList.toggle('light-theme');
       body.classList.toggle('dark-theme');
     }
-    body.classList.add('light-theme', 'dark-theme');
-    body.classList.remove('dark-theme');
+
     window.addEventListener('mousemove', (event) => {
       const distance = Math.hypot(event.clientX - lastX, event.clientY - lastY);
       if (distance > moveThreshold) {
@@ -195,30 +286,82 @@
     });
 
     document.querySelectorAll('.lang-switch .lang').forEach(function(el) {
-      el.addEventListener('click', function() {
+      el.addEventListener('click', function () {
         document.querySelector('.lang-active').classList.remove('lang-active');
         this.classList.add('lang-active');
+
         const lang = this.textContent.trim().toLowerCase();
+		
+		 const nav = document.querySelector('.top-nav');
+    const labels = nav.getAttribute(`data-lang-${lang}`)?.split(",");
+    if (labels && labels.length === 3) {
+      const links = nav.querySelectorAll('a');
+      links.forEach((link, i) => {
+        link.textContent = labels[i];
+      });
+    }
+
         const placeholders = {
           en: {
-            name: "Your name",
-            email: "Your email",
-            message: "Your message",
+            name: "Your name / Company's Name",
+            email: "Email",
+            service: "Choose your service",
+            message: "Your Project's Information",
+            budget: "Budget:",
             button: "Send"
           },
           gr: {
-            name: "Το όνομά σας",
-            email: "Το email σας",
-            message: "Το μήνυμά σας",
+            name: "Ονοματεπώνυμο / Όνομα Εταιρείας",
+            email: "Διεύθυνση Email",
+            service: "Τύπος Υπηρεσίας",
+            message: "Λεπτομέρειες Έργου",
+            budget: "Εύρος Τιμής:",
             button: "Αποστολή"
           }
         };
+
         const f = document.querySelector('.contact-form');
         f.name.placeholder = placeholders[lang].name;
         f.email.placeholder = placeholders[lang].email;
         f.message.placeholder = placeholders[lang].message;
         f.querySelector('button').textContent = placeholders[lang].button;
+
+        document.querySelector('label[for="service"]').textContent = placeholders[lang].service;
+        document.querySelector('label[for="budget"]').textContent = placeholders[lang].budget;
+
+        // serviceOptions localization fix if you want to add it:
+        // const serviceOptions = document.querySelectorAll('#service option');
+        // placeholders[lang].serviceOptions?.forEach((text, i) => {
+        //   if (serviceOptions[i]) {
+        //     serviceOptions[i].textContent = text;
+        //   }
+        // });
       });
+    });
+
+    // Form submission with no redirect:
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        if (response.ok) {
+          alert('Thanks for choosing SARKA.');
+          form.reset();
+        } else {
+          alert('Oops! Something went wrong. Please try again.');
+        }
+      } catch (error) {
+        alert('Network error! Try again later.');
+      }
     });
   </script>
 </body>
