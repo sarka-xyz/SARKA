@@ -146,6 +146,113 @@
       opacity: 0.7;
     }
   </style>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh; /* Changed from height: 100vh to allow scrolling on small phones */
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 650;
+    font-stretch: 151%;
+    letter-spacing: -0.05em;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal wobbling */
+  }
+
+  /* Desktop layout (default) */
+  .top-nav {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4rem;
+    font-size: 1.1rem;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .top-nav a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 25vw;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    line-height: 1.5;
+    font-size: 1.8rem;
+    user-select: none;
+  }
+
+  .video-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 75vw;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    max-width: 600px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: 6px;
+  }
+
+  /* ... Keep your existing .logo, .lang-switch, and theme classes ... */
+  .logo { position: absolute; top: 30px; left: 40px; height: 1.5rem; z-index: 11; }
+  .lang-switch { position: absolute; top: 30px; right: 40px; z-index: 11; cursor: pointer; }
+  .content2 { position: fixed; bottom: 20px; right: 20px; font-size: 0.8rem; opacity: 0.5; }
+  .video-wrapper video { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+  .light-theme { background-color: #ffffff; color: #000000; }
+  .dark-theme { background-color: #000000; color: #ffffff; }
+  .light-theme .video-wrapper video, .light-theme .logo { filter: invert(1); }
+  .lang-active { text-decoration: underline; }
+
+  /* MOBILE RESPONSIVENESS */
+  @media (max-width: 768px) {
+    html, body {
+      overflow-y: auto; /* Allow scrolling on mobile */
+    }
+
+    .top-nav {
+      top: 80px; /* Move nav down to avoid hitting the logo/lang-switch */
+      gap: 1.5rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .content {
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: none;
+      margin: 140px 40px 40px 40px; /* Spacing for the header */
+      font-size: 1.4rem;
+      width: auto;
+    }
+
+    .video-wrapper {
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: none;
+      width: calc(100% - 80px); /* Full width minus margins */
+      margin: 0 40px 100px 40px;
+      max-width: none;
+    }
+    
+    .logo { left: 20px; top: 20px; }
+    .lang-switch { right: 20px; top: 20px; }
+  }
+</style>
+
 </head>
 <body class="light-theme">
 
