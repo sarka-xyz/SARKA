@@ -287,43 +287,65 @@
   <div class="content2">SKG</div>
 
   <script>
-    const body = document.body;
-    let lastX = 0, lastY = 0;
-    const moveThreshold = 20;
+  const body = document.body;
+  let lastX = 0, lastY = 0;
+  const moveThreshold = 20;
 
-    function switchTheme() {
-      body.classList.toggle('light-theme');
-      body.classList.toggle('dark-theme');
+  function switchTheme() {
+    body.classList.toggle('light-theme');
+    body.classList.toggle('dark-theme');
+  }
+
+  // --- INITIAL SETUP ---
+  body.classList.add('light-theme');
+  body.classList.remove('dark-theme');
+
+  // --- DESKTOP: MOUSE MOVE TRIGGER ---
+  window.addEventListener('mousemove', (event) => {
+    const distance = Math.hypot(event.clientX - lastX, event.clientY - lastY);
+    if (distance > moveThreshold) {
+      switchTheme();
+      lastX = event.clientX;
+      lastY = event.clientY;
     }
+  });
 
-    window.addEventListener('mousemove', (event) => {
-      const distance = Math.hypot(event.clientX - lastX, event.clientY - lastY);
-      if (distance > moveThreshold) {
-        switchTheme();
-        lastX = event.clientX;
-        lastY = event.clientY;
+  // --- MOBILE: AUTOMATIC STROBE ---
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+  if (isTouchDevice) {
+    // STROBE SPEED SETTING: 200 is 200 milliseconds (5 times per second)
+    // Decrease for faster, increase for slower.
+    setInterval(switchTheme, 200); 
+  }
+
+  // --- LANGUAGE SWITCHER (YOUR ORIGINAL CODE) ---
+  document.querySelectorAll('.lang-switch .lang').forEach(function(el) {
+    el.addEventListener('click', function() {
+      // Handles the EN/GR button styling
+      document.querySelector('.lang-active').classList.remove('lang-active');
+      this.classList.add('lang-active');
+      const lang = this.textContent.trim().toLowerCase();
+      
+      // Updates the Top Nav links (Home, Music, Portfolio)
+      const nav = document.querySelector('.top-nav');
+      const labels = nav.getAttribute(`data-lang-${lang}`)?.split(",");
+      if (labels && labels.length === 3) {
+        const links = nav.querySelectorAll('a');
+        links.forEach((link, i) => {
+          link.textContent = labels[i];
+        });
       }
+  
+      // Updates the main text content (Feymi/SARKA...)
+      const contentEl = document.querySelector('.content');
+      const newHtml = contentEl.getAttribute('data-lang-' + lang);
+      if (newHtml) contentEl.innerHTML = newHtml;
     });
+  });
+</script>
 
-    document.querySelectorAll('.lang-switch .lang').forEach(function (el) {
-      el.addEventListener('click', function () {
-        document.querySelector('.lang-active').classList.remove('lang-active');
-        this.classList.add('lang-active');
-
-        const lang = this.textContent.trim().toLowerCase();
-
-        // Translate nav bar if language changes
-        const nav = document.querySelector('.top-nav');
-        const labels = nav.getAttribute(`data-lang-${lang}`)?.split(",");
-        if (labels && labels.length === 3) {
-          const links = nav.querySelectorAll('a');
-          links.forEach((link, i) => {
-            link.textContent = labels[i];
-          });
-        }
-      });
-    });
-  </script>
 </body>
 </html>
+
 
